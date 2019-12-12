@@ -1,0 +1,103 @@
+.div-bg-login{
+  background-color: #9ACBD3;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.div-card-login{
+  border-radius: 3px;
+  width: 80%;
+  height: 80%;
+  background-color: white;
+  box-shadow: 0px 0px 12px -1px rgba(0,0,0,0.75);
+  display: flex;
+  justify-content: flex-end;
+}
+.div-form-login{
+  z-index: 20;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.input-login{
+  width: 70%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  max-width: 293px;
+}
+.inputsenha-login{
+  width: 70%;
+  border-radius: 5px !important;
+  margin-bottom: 10px;
+  max-width: 293px;
+}
+.h1-bv-login{
+  color: black;
+  font-family: myFirstFont;
+  text-align: center;
+}
+.p-login{
+  color: rgb(116, 116, 116);
+  font-family: myFirstFont;
+  text-align: center;
+}
+.button-entrar{
+  background-color: #9ACBD3;
+  border: #9ACBD3;
+  width: 70%;
+  margin-top: 10px;
+  border-radius: 5px;
+  color: black;
+  font-family: myFirstFont;
+  font-size: 22px;
+  max-width: 293px;
+}
+.button-entrar:hover{
+  background-color: rgb(179, 233, 241);
+  border: rgb(179, 233, 241);
+  color: black;
+}
+.div-main-form-login{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+.icon-home-login{
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: flex-end;
+}
+@media (max-width: 880px) 
+{
+  .div-card-login{
+    border-radius: 3px;
+    width: 90%;
+    height: 80%;
+    background-color: white;
+    box-shadow: 0px 0px 12px -1px rgba(0,0,0,0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .div-form-login{
+    z-index: 20;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .div-main-form-login{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
