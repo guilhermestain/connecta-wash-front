@@ -73,6 +73,75 @@
   display: flex;
   justify-content: flex-end;
 }
+.div-buttons-client-login{
+  width: 70%;
+  display: flex;
+  max-width: 293px;
+}
+.button-client-login-true{
+  background-color: #9ACBD3;
+  border: #9ACBD3;
+  width: 50%;
+  margin-top: 10px;
+  border-radius: 5px 0 0 5px; 
+  color: black;
+  font-family: myFirstFont;
+  font-size: 22px;
+  max-width: 293px;
+} 
+.button-client-login-true:hover{
+  background-color: #9ACBD3;
+  border: #9ACBD3;
+  color: black;
+}
+.button-client-login-false{
+  background-color: rgb(217, 238, 241);
+  border: rgb(217, 238, 241);
+  width: 50%;
+  margin-top: 10px;
+  border-radius: 5px 0 0 5px; 
+  color: black;
+  font-family: myFirstFont;
+  font-size: 22px;
+  max-width: 293px;
+} 
+.button-client-login-false:hover{
+  background-color: rgb(217, 238, 241);
+  border: rgb(217, 238, 241);
+  color: black;
+}
+.button-empresa-login-true{
+  background-color: #9ACBD3;
+  border: #9ACBD3;
+  width: 50%;
+  margin-top: 10px;
+  border-radius: 0 5px 5px 0; 
+  color: black;
+  font-family: myFirstFont;
+  font-size: 22px;
+  max-width: 293px;
+}
+.button-empresa-login-true:hover{
+  background-color: #9ACBD3;
+  color: black;
+  border: #9ACBD3;
+}
+.button-empresa-login-false{
+  background-color: rgb(217, 238, 241);
+  border: rgb(217, 238, 241);
+  width: 50%;
+  margin-top: 10px;
+  border-radius: 0 5px 5px 0; 
+  color: black;
+  font-family: myFirstFont;
+  font-size: 22px;
+  max-width: 293px;
+}
+.button-empresa-login-false:hover{
+  background-color: rgb(217, 238, 241);
+  border: rgb(217, 238, 241);
+  color: black;
+}
 @media (max-width: 880px) 
 {
   .div-card-login{

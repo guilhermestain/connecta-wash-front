@@ -9,11 +9,24 @@ class LoginPage extends Component {
     redirect: false,
     email: '',
     senha: '',
+    client: true,
   }
 
   onChangeLogin = (e) => {
     this.setState({
       [e.target.name]: e.target.value
+    })
+  }
+
+  changeButtonClient = () => {
+    this.setState({
+      client: true
+    })
+  } 
+
+  changeButtonEmpresa = () => {
+    this.setState({
+      client: false
     })
   }
 
@@ -40,7 +53,10 @@ class LoginPage extends Component {
               <Icon type="home" style={{ fontSize: '22px', margin: '10px 15px 0 0' }} onClick={this.setRedirect}/>
             </div>
             <div className='div-form-login'>
-              <h1 className='h1-bv-login'>Bem vindos ao Connecta Wash</h1>
+              {this.state.client ? 
+                <h1 className='h1-bv-login'>Bem vindos ao Connecta Wash Cliente</h1> : 
+                <h1 className='h1-bv-login'>Bem vindos ao Connecta Wash Empresa</h1> 
+              }
               <p className='p-login'>Obrigado por estar fazendo parte da nossa plataforma online.</p>
               <Input
                 placeholder="Digite o seu email"
@@ -56,6 +72,18 @@ class LoginPage extends Component {
                 value={this.state.senha}
                 onChange={this.onChangeLogin}
               />
+              <div className='div-buttons-client-login'>
+                {
+                  this.state.client ? 
+                  <Button className='button-client-login-true' onClick={this.changeButtonClient}>Cliente</Button> 
+                  : <Button className='button-client-login-false' onClick={this.changeButtonClient}>Cliente</Button>
+                } 
+                {
+                  !this.state.client ? 
+                  <Button className='button-empresa-login-true' onClick={this.changeButtonEmpresa} >Empresa</Button> 
+                  : <Button className='button-empresa-login-false' onClick={this.changeButtonEmpresa}>Empresa</Button>
+                } 
+              </div>
               <Button className='button-entrar'>Logar</Button>
             </div>
           </div>
