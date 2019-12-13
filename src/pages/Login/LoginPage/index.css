@@ -46,11 +46,22 @@
   font-family: myFirstFont;
   text-align: center;
 }
+.div-inputs{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+.p-inputs{
+  font-family: myFirstFont;
+  width: 70%;
+  max-width: 293px;
+}
 .button-entrar{
   background-color: #9ACBD3;
   border: #9ACBD3;
   width: 70%;
-  margin-top: 10px;
+  margin: 10px 0 20px 0;
   border-radius: 5px;
   color: black;
   font-family: myFirstFont;
