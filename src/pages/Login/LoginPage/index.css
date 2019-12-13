@@ -1,21 +1,21 @@
-.div-bg-login{
-  background-color: #9ACBD3;
+.div-bg-login {
+  background-color: #9acbd3;
   width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.div-card-login{
+.div-card-login {
   border-radius: 3px;
   width: 80%;
   height: 80%;
   background-color: white;
-  box-shadow: 0px 0px 12px -1px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 12px -1px rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: flex-end;
 }
-.div-form-login{
+.div-form-login {
   z-index: 20;
   width: 100%;
   height: 90%;
@@ -24,148 +24,147 @@
   justify-content: center;
   align-items: center;
 }
-.input-login{
+.input-login {
   width: 70%;
   border-radius: 5px;
   margin-bottom: 10px;
   max-width: 293px;
 }
-.inputsenha-login{
+.inputsenha-login {
   width: 70%;
   border-radius: 5px !important;
   margin-bottom: 10px;
   max-width: 293px;
 }
-.h1-bv-login{
+.h1-bv-login {
   color: black;
   font-family: myFirstFont;
   text-align: center;
 }
-.p-login{
+.p-login {
   color: rgb(116, 116, 116);
   font-family: myFirstFont;
   text-align: center;
 }
-.div-inputs{
+.div-inputs {
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
 }
-.p-inputs{
+.p-inputs {
   font-family: myFirstFont;
   width: 70%;
   max-width: 293px;
 }
-.button-entrar{
-  background-color: #9ACBD3;
-  border: #9ACBD3;
+.button-entrar {
+  background-color: #9acbd3 !important;
+  border: #9acbd3 !important;
   width: 70%;
   margin: 10px 0 20px 0;
   border-radius: 5px;
-  color: black;
+  color: black !important;
   font-family: myFirstFont;
   font-size: 22px;
   max-width: 293px;
 }
-.button-entrar:hover{
-  background-color: rgb(179, 233, 241);
-  border: rgb(179, 233, 241);
-  color: black;
+.button-entrar:hover {
+  background-color: rgb(179, 233, 241) !important;
+  border: rgb(179, 233, 241) !important;
+  color: black !important;
 }
-.div-main-form-login{
+.div-main-form-login {
   width: 40%;
   display: flex;
   flex-direction: column;
 }
-.icon-home-login{
+.icon-home-login {
   width: 100%;
   height: 10%;
   display: flex;
   justify-content: flex-end;
 }
-.div-buttons-client-login{
+.div-buttons-client-login {
   width: 70%;
   display: flex;
   max-width: 293px;
 }
-.button-client-login-true{
-  background-color: #9ACBD3;
-  border: #9ACBD3;
+.button-client-login-true {
+  background-color: #9acbd3 !important;
+  border: #9acbd3 !important;
   width: 50%;
   margin-top: 10px;
-  border-radius: 5px 0 0 5px; 
-  color: black;
+  border-radius: 5px 0 0 5px;
+  color: black !important;
   font-family: myFirstFont;
   font-size: 22px;
   max-width: 293px;
-} 
-.button-client-login-true:hover{
-  background-color: #9ACBD3;
-  border: #9ACBD3;
-  color: black;
 }
-.button-client-login-false{
+.button-client-login-true:hover {
+  background-color: #9acbd3 !important;
+  border: #9acbd3 !important;
+  color: black !important;
+}
+.button-client-login-false {
   background-color: rgb(217, 238, 241);
   border: rgb(217, 238, 241);
   width: 50%;
   margin-top: 10px;
-  border-radius: 5px 0 0 5px; 
-  color: black;
-  font-family: myFirstFont;
-  font-size: 22px;
-  max-width: 293px;
-} 
-.button-client-login-false:hover{
-  background-color: rgb(217, 238, 241);
-  border: rgb(217, 238, 241);
-  color: black;
-}
-.button-empresa-login-true{
-  background-color: #9ACBD3;
-  border: #9ACBD3;
-  width: 50%;
-  margin-top: 10px;
-  border-radius: 0 5px 5px 0; 
+  border-radius: 5px 0 0 5px;
   color: black;
   font-family: myFirstFont;
   font-size: 22px;
   max-width: 293px;
 }
-.button-empresa-login-true:hover{
-  background-color: #9ACBD3;
-  color: black;
-  border: #9ACBD3;
+.button-client-login-false:hover {
+  background-color: rgb(217, 238, 241);
+  border: rgb(217, 238, 241);
+  color: black !important;
 }
-.button-empresa-login-false{
+.button-empresa-login-true {
+  background-color: #9acbd3 !important;
+  border: #9acbd3 !important;
+  width: 50%;
+  margin-top: 10px;
+  border-radius: 0 5px 5px 0;
+  color: black !important;
+  font-family: myFirstFont;
+  font-size: 22px;
+  max-width: 293px;
+}
+.button-empresa-login-true:hover {
+  background-color: #9acbd3 !important;
+  color: black !important;
+  border: #9acbd3 !important;
+}
+.button-empresa-login-false {
   background-color: rgb(217, 238, 241);
   border: rgb(217, 238, 241);
   width: 50%;
   margin-top: 10px;
-  border-radius: 0 5px 5px 0; 
+  border-radius: 0 5px 5px 0;
   color: black;
   font-family: myFirstFont;
   font-size: 22px;
   max-width: 293px;
 }
-.button-empresa-login-false:hover{
+.button-empresa-login-false:hover {
   background-color: rgb(217, 238, 241);
   border: rgb(217, 238, 241);
   color: black;
 }
-@media (max-width: 880px) 
-{
-  .div-card-login{
+@media (max-width: 880px) {
+  .div-card-login {
     border-radius: 3px;
     width: 90%;
     height: 80%;
     background-color: white;
-    box-shadow: 0px 0px 12px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 12px -1px rgba(0, 0, 0, 0.75);
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .div-form-login{
+  .div-form-login {
     z-index: 20;
     width: 100%;
     height: 90%;
@@ -174,7 +173,7 @@
     justify-content: center;
     align-items: center;
   }
-  .div-main-form-login{
+  .div-main-form-login {
     width: 100%;
     height: 100%;
     display: flex;
