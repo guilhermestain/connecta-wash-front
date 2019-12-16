@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 
-import HomeRoute from "./Home";
-import LoginRoute from "./Login";
-import CadastroClientLoginRoute from "./CadastroLogin";
+import CadastroClientLoginRoute from "./CadastroLoginClient";
 import ClientDashRoute from "./Client/Dash";
 import CompanyDashRoute from "./Company/Dash";
 import CadastroEmpresaLoginRoute from "./CadastroLoginEmpresa";
@@ -25,6 +23,11 @@ class PagesRoute extends Component {
             exact
             path="/cadastroClient"
             component={CadastroClientLoginRoute}
+          />
+          <Route
+            exact
+            path="/cadastroEmpresa"
+            component={CadastroEmpresaLoginRoute}
           />
           <Route exact path="/client/dash" component={ClientDashRoute} />
           <Route exact path="/company/dash" component={CompanyDashRoute} />

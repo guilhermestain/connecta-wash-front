@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import HomePage from "../pages/Home/HomePage";
 import LoginPage from "../pages/Login/LoginPage";
-import CadastroClientLoginPage from "../pages/CadastroLogin/CadastroClientLoginPage";
+import CadastroClientLoginPage from "../pages/CadastroLoginClient/CadastroClientLoginPage";
 import CadastroEmpresaLoginPage from "../pages/CadastroLoginEmpresa/CadastroEmpresaLoginPage";
 
 class Routes extends Component {
@@ -24,6 +24,11 @@ class Routes extends Component {
             exact
             path="/cadastroClient"
             component={CadastroClientLoginPage}
+          />
+          <Route
+            exact
+            path="/cadastroEmpresa"
+            component={CadastroEmpresaLoginPage}
           />
           <PrivateClientRoutes path="/client" />
           <PrivateCompanyRoutes path="/company" />
