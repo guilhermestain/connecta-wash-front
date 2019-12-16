@@ -6,6 +6,7 @@ import PrivateCompanyRoutes from "./privateCompanyRoutes";
 import HomePage from "../pages/Home/HomePage";
 import LoginPage from "../pages/Login/LoginPage";
 import CadastroClientLoginPage from "../pages/CadastroLogin/CadastroClientLoginPage";
+import CadastroEmpresaLoginPage from "../pages/CadastroLoginEmpresa/CadastroEmpresaLoginPage";
 
 const Routes = () => (
   <BrowserRouter>
@@ -13,6 +14,7 @@ const Routes = () => (
       <Route exact path="/home" component={HomePage} />
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/cadastroClient" component={CadastroClientLoginPage} />
+      <Route exact path="/cadastroEmpresa" component={CadastroEmpresaLoginPage} />
       <PrivateClientRoutes path="/client" />
       <PrivateCompanyRoutes path="/company" />
       <Redirect to="/home" />
