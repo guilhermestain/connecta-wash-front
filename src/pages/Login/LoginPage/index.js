@@ -8,6 +8,7 @@ import uuidValidate from "uuid-validate";
 import * as R from "ramda";
 
 import { onSubmit } from "../LoginRedux/action";
+import { redirect } from "../../../components/Menu/MenuRedux/action";
 
 class LoginPage extends Component {
   state = {
@@ -58,13 +59,12 @@ class LoginPage extends Component {
     if (this.hasAuth(this.props)) {
       if (this.hasToken(this.props.auth)) {
         if (uuidValidate(this.props.auth.token)) {
-          // console.log(`/${this.props.auth.typeAccount}/dash`);
+          await this.props.redirect({
+            redirect: `/${this.props.auth.typeAccount}/dash`
+          });
           await this.setState({
             redirect: `/${this.props.auth.typeAccount}/dash`
           });
-          // this.setState({
-          //   redirect: false
-          // });
         }
       }
     }
@@ -148,7 +148,9 @@ class LoginPage extends Component {
                   </Button>
                 )}
               </div>
-              <Button className="button-entrar">Logar</Button>
+              <Button className="button-entrar" onClick={this.login}>
+                Logar
+              </Button>
               {this.state.client ? (
                 <h4 className="p-login">
                   Gostaria de se cadastrar?{" "}
@@ -169,7 +171,7 @@ class LoginPage extends Component {
 }
 
 function mapDispacthToProps(dispach) {
-  return bindActionCreators({ onSubmit }, dispach);
+  return bindActionCreators({ onSubmit, redirect }, dispach);
 }
 
 function mapStateToProps(state) {
