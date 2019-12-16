@@ -51,6 +51,12 @@ class LoginPage extends Component {
   hasAuth = R.has("auth");
   hasToken = R.has("token");
 
+  // enterKey = async (e) => {
+  //   if (e.which === 13 || e.keyCode === 13) {
+  //     await this.props.onSubmit({...this.props.value, typeAccount: { stock: true }})
+  //   }
+  // }
+
   login = async () => {
     const { email, senha } = this.state;
 

@@ -35,7 +35,7 @@ class CadastroEmpresaLoginPage extends Component {
   render() {
     return (
       <div className='div-bg-login'>
-        <div className='div-card-login'>
+        <div className='div-card-cadastro'>
           <div className='div-main-form-login'>
             <div className='icon-home-login'>
               {this.renderRedirect()}

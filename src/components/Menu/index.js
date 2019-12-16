@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { store } from "../../App";
 import MenuPages from "./MenuPages";
