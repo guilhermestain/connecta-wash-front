@@ -1,26 +1,46 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
+import { connect } from "react-redux";
 
-import HomeRoute from "./Home";
-import LoginRoute from "./Login";
-import CadastroClientLoginRoute from "./CadastroLogin";
+import CadastroClientLoginRoute from "./CadastroLoginClient";
 import ClientDashRoute from "./Client/Dash";
 import CompanyDashRoute from "./Company/Dash";
 import CadastroEmpresaLoginRoute from "./CadastroLoginEmpresa";
 
 class PagesRoute extends Component {
+  state = {
+    redirectPage: this.props.redirectPage.redirect
+  };
+
   render() {
-    return (
-      <Switch>
-        <Route exact path="/home" component={HomeRoute} />
-        <Route exact path="/login" component={LoginRoute} />
-        <Route exact path="/cadastroClient" component={CadastroClientLoginRoute} />
-        <Route exact path="/cadastroEmpresa" component={CadastroEmpresaLoginRoute} />
-        <Route exact path="/client/dash" component={ClientDashRoute} />
-        <Route exact path="/company/dash" component={CompanyDashRoute} />
-      </Switch>
-    );
+    if (this.state.redirectPage !== this.props.redirectPage.redirect) {
+      this.setState({ redirectPage: this.props.redirectPage.redirect });
+      return <Redirect to={this.props.redirectPage.redirect} />;
+    } else {
+      return (
+        <Switch>
+          <Route
+            exact
+            path="/cadastroClient"
+            component={CadastroClientLoginRoute}
+          />
+          <Route
+            exact
+            path="/cadastroEmpresa"
+            component={CadastroEmpresaLoginRoute}
+          />
+          <Route exact path="/client/dash" component={ClientDashRoute} />
+          <Route exact path="/company/dash" component={CompanyDashRoute} />
+        </Switch>
+      );
+    }
   }
 }
 
-export default PagesRoute;
+function mapStateToProps(state) {
+  return {
+    redirectPage: state.redirect
+  };
+}
+
+export default connect(mapStateToProps)(PagesRoute);

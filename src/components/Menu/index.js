@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 import { store } from "../../App";
+import MenuPages from "./MenuPages";
 
 class Menu extends Component {
   render() {
@@ -10,8 +12,7 @@ class Menu extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <Switch>
-            <Route path="/client" component={MenuClient} />
-            <Route path="/company" component={MenuCompany} />
+            <Route path="/" component={MenuPages} />
           </Switch>
         </BrowserRouter>
       </Provider>
@@ -20,15 +21,3 @@ class Menu extends Component {
 }
 
 export default Menu;
-
-class MenuClient extends Component {
-  render() {
-    return <h1>MenuClient</h1>;
-  }
-}
-
-class MenuCompany extends Component {
-  render() {
-    return <h1>MenuCompany</h1>;
-  }
-}
