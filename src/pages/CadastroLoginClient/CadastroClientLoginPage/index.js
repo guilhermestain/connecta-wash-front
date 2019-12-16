@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './index.css'
 import { Input, Button, Icon } from 'antd'
 import { Redirect } from 'react-router-dom'
 
@@ -34,7 +33,7 @@ class CadastroClientLoginPage extends Component {
   render() {
     return (
       <div className='div-bg-login'>
-        <div className='div-card-login'>
+        <div className='div-card-cadastro'>
           <div className='div-main-form-login'>
             <div className='icon-home-login'>
               {this.renderRedirect()}
