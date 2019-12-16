@@ -16,6 +16,7 @@
   box-shadow: 0px 0px 12px -1px rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: flex-end;
+  background-image: url(/prog1.jpg);
 }
 .div-form-login {
   z-index: 20;

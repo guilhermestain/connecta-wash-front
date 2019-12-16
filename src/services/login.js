@@ -23,3 +23,22 @@ export const logout = async token => {
 
   return true;
 };
+
+export const auth = async value => {
+  let response = null;
+
+  await api
+    .get("/oapi/auth", { params: value })
+    .then(resp => {
+      response = resp;
+    })
+    .catch(error => {
+      if (error.response) {
+        response = error.response;
+      } else {
+        console.log("Error", error.message);
+      }
+    });
+
+  return response;
+};

@@ -1,16 +1,61 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import PagesRoute from "../pages";
 
+import { Logout } from "../pages/Login/LoginRedux/action";
+import { auth } from "../services/login";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
 class PrivateRoutes extends Component {
-  render() {
-    return (
-      <Switch>
-        <Route path="/client" component={PagesRoute} />
-      </Switch>
+  state = {
+    auth: true
+  };
+  logout = async () => {
+    await this.props.Logout(this.props.auth.token);
+  };
+  auth = async () => {
+    const value = {
+      token: this.props.auth.token,
+      username: this.props.auth.username
+    };
+
+    let response = {};
+
+    response = await auth(value).then(resp =>
+      this.setState({
+        auth: resp ? resp.data : false
+      })
     );
+
+    return response;
+  };
+  componentDidMount = async () => {
+    await this.auth();
+  };
+  render() {
+    if (this.state.auth) {
+      return (
+        <Switch>
+          <Route path="/client" component={PagesRoute} />
+        </Switch>
+      );
+    } else {
+      this.logout();
+      return <Redirect to="/login" />;
+    }
   }
 }
 
-export default PrivateRoutes;
+function mapDispacthToProps(dispach) {
+  return bindActionCreators({ Logout }, dispach);
+}
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
+
+export default connect(mapStateToProps, mapDispacthToProps)(PrivateRoutes);

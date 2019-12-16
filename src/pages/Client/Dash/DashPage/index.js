@@ -2,19 +2,39 @@ import React, { Component } from "react";
 import "./index.css";
 
 import { slideout } from "../../../../services/slideout";
-import { Logout } from '../../../Login/LoginRedux/action'
-import { Button } from "antd";
-
+import { Icon } from "antd";
 class DashPage extends Component {
+  state = {
+    isOpen: slideout.isOpen()
+  };
   componentDidMount = () => {
     slideout.enableTouch();
   };
   render() {
     return (
-    <>
-    <Button onClick={()=> Logout()}>Sair</Button>
-    <h1>Client</h1>
-    </>)
+      <>
+        {this.state.isOpen ? (
+          <Icon
+            type="menu-fold"
+            style={{ fontSize: "30px", margin: "10px" }}
+            onClick={() => {
+              slideout.toggle();
+              this.setState({ isOpen: slideout.isOpen() });
+            }}
+          />
+        ) : (
+          <Icon
+            type="menu-unfold"
+            style={{ fontSize: "30px", margin: "10px" }}
+            onClick={() => {
+              slideout.toggle();
+              this.setState({ isOpen: slideout.isOpen() });
+            }}
+          />
+        )}
+        <h1>Client</h1>
+      </>
+    );
   }
 }
 
