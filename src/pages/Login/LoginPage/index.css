@@ -155,7 +155,7 @@
   border: rgb(217, 238, 241);
   color: black;
 }
-@media (max-width: 880px) {
+@media (max-width: 1200px) {
   .div-card-login {
     background: none;
     border-radius: 3px;

@@ -9,7 +9,7 @@
   display: flex;
   justify-content: flex-end;
 }
-@media (max-width: 880px) {
+@media (max-width: 1200px) {
   .div-card-cadastro {
     background: none;
     border-radius: 3px;
