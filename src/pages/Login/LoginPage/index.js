@@ -4,11 +4,8 @@ import { Input, Button, Icon } from "antd";
 import { Redirect } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import uuidValidate from "uuid-validate";
-import * as R from "ramda";
 
 import { onSubmit } from "../LoginRedux/action";
-import { redirect } from "../../../components/Menu/MenuRedux/action";
 
 class LoginPage extends Component {
   state = {
@@ -48,8 +45,12 @@ class LoginPage extends Component {
     }
   };
 
-  hasAuth = R.has("auth");
-  hasToken = R.has("token");
+  enterKey = async e => {
+    const { email, senha } = this.state;
+    if (e.which === 13 || e.keyCode === 13) {
+      await this.props.onSubmit({ email, password: senha });
+    }
+  };
 
   // enterKey = async (e) => {
   //   if (e.which === 13 || e.keyCode === 13) {
@@ -61,19 +62,6 @@ class LoginPage extends Component {
     const { email, senha } = this.state;
 
     await this.props.onSubmit({ email, password: senha });
-
-    if (this.hasAuth(this.props)) {
-      if (this.hasToken(this.props.auth)) {
-        if (uuidValidate(this.props.auth.token)) {
-          await this.props.redirect({
-            redirect: `/${this.props.auth.typeAccount}/dash`
-          });
-          await this.setState({
-            redirect: `/${this.props.auth.typeAccount}/dash`
-          });
-        }
-      }
-    }
   };
 
   render() {
@@ -82,7 +70,7 @@ class LoginPage extends Component {
         <div className="div-card-login">
           <div className="div-main-form-login">
             <div className="icon-home-login">
-              {this.renderRedirect()}
+              {/* {this.renderRedirect()} */}
               <Icon
                 type="home"
                 style={{ fontSize: "22px", margin: "10px 15px 0 0" }}
@@ -110,6 +98,7 @@ class LoginPage extends Component {
                   name="email"
                   value={this.state.email}
                   onChange={this.onChangeLogin}
+                  onKeyPress={this.enterKey}
                 />
               </div>
               <div className="div-inputs">
@@ -120,6 +109,7 @@ class LoginPage extends Component {
                   name="senha"
                   value={this.state.senha}
                   onChange={this.onChangeLogin}
+                  onKeyPress={this.enterKey}
                 />
               </div>
               <div className="div-buttons-client-login">
@@ -177,7 +167,7 @@ class LoginPage extends Component {
 }
 
 function mapDispacthToProps(dispach) {
-  return bindActionCreators({ onSubmit, redirect }, dispach);
+  return bindActionCreators({ onSubmit }, dispach);
 }
 
 function mapStateToProps(state) {

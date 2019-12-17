@@ -5,7 +5,7 @@ import PrivateCompanyRoutes from "./privateCompanyRoutes";
 import { connect } from "react-redux";
 
 import HomePage from "../pages/Home/HomePage";
-import LoginPage from "../pages/Login/LoginPage";
+import LoginRoute from "../pages/Login";
 import CadastroClientLoginPage from "../pages/CadastroLoginClient/CadastroClientLoginPage";
 import CadastroEmpresaLoginPage from "../pages/CadastroLoginEmpresa/CadastroEmpresaLoginPage";
 import ConfirmarCodigoPage from "../pages/ConfirmarCodigo/ConfirmarCodigoPage";
@@ -20,7 +20,7 @@ class Routes extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/home" component={HomePage} />
-          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/login" component={LoginRoute} />
           <Route
             exact
             path="/cadastroClient"
