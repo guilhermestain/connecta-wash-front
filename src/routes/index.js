@@ -8,6 +8,7 @@ import HomePage from "../pages/Home/HomePage";
 import LoginPage from "../pages/Login/LoginPage";
 import CadastroClientLoginPage from "../pages/CadastroLoginClient/CadastroClientLoginPage";
 import CadastroEmpresaLoginPage from "../pages/CadastroLoginEmpresa/CadastroEmpresaLoginPage";
+import ConfirmarCodigoPage from "../pages/ConfirmarCodigo/ConfirmarCodigoPage";
 
 class Routes extends Component {
   state = {
@@ -29,6 +30,11 @@ class Routes extends Component {
             exact
             path="/cadastroEmpresa"
             component={CadastroEmpresaLoginPage}
+          />
+          <Route
+            exact
+            path="/confirmarCodigo"
+            component={ConfirmarCodigoPage}
           />
           <PrivateClientRoutes path="/client" />
           <PrivateCompanyRoutes path="/company" />

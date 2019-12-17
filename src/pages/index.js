@@ -6,6 +6,7 @@ import CadastroClientLoginRoute from "./CadastroLoginClient";
 import ClientDashRoute from "./Client/Dash";
 import CompanyDashRoute from "./Company/Dash";
 import CadastroEmpresaLoginRoute from "./CadastroLoginEmpresa";
+import ConfirmarCodigoRoute from "./ConfirmarCodigo";
 
 class PagesRoute extends Component {
   state = {
@@ -29,6 +30,7 @@ class PagesRoute extends Component {
             path="/cadastroEmpresa"
             component={CadastroEmpresaLoginRoute}
           />
+          <Route exact path="/confimarCodigo" component={ConfirmarCodigoRoute} />
           <Route exact path="/client/dash" component={ClientDashRoute} />
           <Route exact path="/company/dash" component={CompanyDashRoute} />
         </Switch>
