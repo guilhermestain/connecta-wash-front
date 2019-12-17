@@ -7,7 +7,7 @@
   justify-content: center;
 }
 .div-card-login {
-  background: url('/prog2-01.png') no-repeat;
+  background: url("/prog2-01.png") no-repeat;
   background-size: cover;
   border-radius: 3px;
   width: 80%;
