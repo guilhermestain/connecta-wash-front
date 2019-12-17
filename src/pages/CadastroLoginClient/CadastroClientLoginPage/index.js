@@ -1,94 +1,193 @@
-import React, { Component } from 'react'
-import { Input, Button, Icon } from 'antd'
-import { Redirect } from 'react-router-dom'
+import React, { Component } from "react";
+import { Input, Button, Icon } from "antd";
+import { Redirect } from "react-router-dom";
+
+import { creatrUser } from "../../../services/user";
+import { validator } from "./validator";
 
 class CadastroClientLoginPage extends Component {
-
   state = {
-    redirect: false,
-    nome: '',
-    email: '',
-    senha: '',
-    confirmSenha: '',
-  }
+    redirect: "",
+    nome: "",
+    email: "",
+    senha: "",
+    confirmSenha: "",
+    fieldFalha: {
+      nome: false,
+      email: false,
+      senha: false,
+      confirmSenha: false
+    }
+  };
 
-  onChangeLogin = (e) => {
+  onChange = e => {
+    const { name, value } = e.target;
     this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
+      [name]: value
+    });
+  };
+
+  onBlur = e => {
+    const { fieldFalha } = validator(e.target.name, e.target.value, this.state);
+
+    if (
+      (e.target.name === "senha" || e.target.name === "confirmSenha") &&
+      this.state.senha !== "" &&
+      this.state.senha !== "" &&
+      this.state.senha !== this.state.confirmSenha
+    ) {
+      fieldFalha.confirmSenha = true;
+    }
+
+    this.setState({
+      fieldFalha
+    });
+  };
+
+  onFocus = e => {
+    const { name } = e.target;
+    const { fieldFalha } = this.state;
+
+    fieldFalha[name] = false;
+
+    this.setState({
+      fieldFalha
+    });
+  };
 
   setRedirect = () => {
     this.setState({
-      redirect: true
-    })
-  }
+      redirect: "/home"
+    });
+  };
 
   renderRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to='/home' />
+    if (this.state.redirect !== "") {
+      return <Redirect to={this.state.redirect} />;
     }
-  }
+  };
+
+  saveTargetNewUser = async () => {
+    const { nome: name, email, senha: password, fieldFalha } = this.state;
+
+    const errors = [
+      fieldFalha.nome,
+      fieldFalha.email,
+      fieldFalha.senha,
+      fieldFalha.confirmSenha
+    ];
+
+    if (errors.filter(item => item === true).length !== 0) return;
+
+    const value = {
+      name,
+      email,
+      password,
+      typeAccount: "client"
+    };
+
+    const { status, data } = await creatrUser(value);
+
+    if (status === 200) {
+      this.setState({
+        nome: "",
+        email: "",
+        senha: "",
+        confirmSenha: "",
+        fieldFalha: {
+          nome: false,
+          email: false,
+          senha: false,
+          confirmSenha: false
+        }
+      });
+    }
+  };
 
   render() {
     return (
-      <div className='div-bg-login'>
-        <div className='div-card-cadastro'>
-          <div className='div-main-form-login'>
-            <div className='icon-home-login'>
+      <div className="div-bg-login">
+        <div className="div-card-cadastro">
+          <div className="div-main-form-login">
+            <div className="icon-home-login">
               {this.renderRedirect()}
-              <Icon type="home" style={{ fontSize: '22px', margin: '10px 15px 0 0' }} onClick={this.setRedirect} />
+              <Icon
+                type="home"
+                style={{ fontSize: "22px", margin: "10px 15px 0 0" }}
+                onClick={this.setRedirect}
+              />
             </div>
-            <div className='div-form-login'>
-              <h1 className='h1-bv-login'>Cadastro do cliente</h1>
-              <p className='p-login'>Obrigado por estar fazendo parte da nossa plataforma online.</p>
-              <div className='div-inputs'>
-                <h4 className='p-inputs'>Nome:</h4>
-              <Input
-                placeholder="Digite seu nome"
-                className='input-login'
-                name='nome'
-                value={this.state.nome}
-                onChange={this.onChangeLogin}
-              />
+            <div className="div-form-login">
+              <h1 className="h1-bv-login">Cadastro do cliente</h1>
+              <p className="p-login">
+                Obrigado por estar fazendo parte da nossa plataforma online.
+              </p>
+              <div className="div-inputs">
+                <h4 className="p-inputs">Nome:</h4>
+                <Input
+                  placeholder="Digite seu nome"
+                  className={`input-login ${this.state.fieldFalha.nome &&
+                    "input-error"}`}
+                  name="nome"
+                  value={this.state.nome}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  onFocus={this.onFocus}
+                />
               </div>
-              <div className='div-inputs'>
-                <h4 className='p-inputs'>Email:</h4>
-              <Input
-                placeholder="Digite seu email"
-                className='input-login'
-                name='email'
-                value={this.state.email}
-                onChange={this.onChangeLogin}
-              />
+              <div className="div-inputs">
+                <h4 className="p-inputs">Email:</h4>
+                <Input
+                  placeholder="Digite seu email"
+                  className={`input-login ${this.state.fieldFalha.email &&
+                    "input-error"}`}
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  onFocus={this.onFocus}
+                />
               </div>
-              <div className='div-inputs'>
-                <h4 className='p-inputs'>Senha:</h4>
-              <Input.Password
-                placeholder="Digite sua senha"
-                className='inputsenha-login'
-                name='senha'
-                value={this.state.senha}
-                onChange={this.onChangeLogin}
-              />
+              <div className="div-inputs">
+                <h4 className="p-inputs">Senha:</h4>
+                <Input.Password
+                  placeholder="Digite sua senha"
+                  className={`inputsenha-login ${this.state.fieldFalha.senha &&
+                    "input-error"}`}
+                  name="senha"
+                  value={this.state.senha}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  onFocus={this.onFocus}
+                  visibilityToggle={!this.state.fieldFalha.senha}
+                />
               </div>
-              <div className='div-inputs'>
-                <h4 className='p-inputs'>Conrfimar senha:</h4>
-              <Input.Password
-                placeholder="Confirme sua senha"
-                className='inputsenha-login'
-                name='confirmSenha'
-                value={this.state.confirmSenha}
-                onChange={this.onChangeLogin}
-              />
+              <div className="div-inputs">
+                <h4 className="p-inputs">Conrfimar senha:</h4>
+                <Input.Password
+                  placeholder="Confirme sua senha"
+                  className={`inputsenha-login ${this.state.fieldFalha
+                    .confirmSenha && "input-error"}`}
+                  name="confirmSenha"
+                  value={this.state.confirmSenha}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  onFocus={this.onFocus}
+                  visibilityToggle={!this.state.fieldFalha.confirmSenha}
+                />
               </div>
-              <Button className='button-entrar'>Cadastrar</Button>
+              <Button
+                className="button-entrar"
+                onClick={this.saveTargetNewUser}
+              >
+                Cadastrar
+              </Button>
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default CadastroClientLoginPage
+export default CadastroClientLoginPage;

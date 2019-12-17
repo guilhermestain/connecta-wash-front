@@ -44,3 +44,8 @@ body {
 .slideout-open .slideout-menu {
   display: block;
 }
+
+.input-error {
+  background: rgba(255, 0, 0, 0.1) !important;
+  border-color: red !important;
+}

@@ -70,7 +70,7 @@ class LoginPage extends Component {
         <div className="div-card-login">
           <div className="div-main-form-login">
             <div className="icon-home-login">
-              {/* {this.renderRedirect()} */}
+              {this.renderRedirect()}
               <Icon
                 type="home"
                 style={{ fontSize: "22px", margin: "10px 15px 0 0" }}
