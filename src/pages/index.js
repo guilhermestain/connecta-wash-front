@@ -35,7 +35,7 @@ class PagesRoute extends Component {
             path="/confimarCodigo"
             component={ConfirmarCodigoRoute}
           />
-          <Route exact path="/client/dash" component={ClientDashRoute} />
+          <Route exact path="/client/monitoramento" component={ClientDashRoute} />
           <Route exact path="/company/dash" component={CompanyDashRoute} />
         </Switch>
       );

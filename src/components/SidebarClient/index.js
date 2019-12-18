@@ -44,13 +44,8 @@ class SidebarClient extends Component {
     return (
       <div className={`div-sidebarCLient-${this.state.theme}`}>
         <div className={`div-theme-sidebarCLient-${this.state.theme}`}>
-          <Switch
-            style={{ marginLeft: '10px' }}
-            checked={this.state.theme === 'dark'}
-            onChange={this.changeTheme}
-            checkedChildren={<Icon type="bulb" />}
-            unCheckedChildren={<Icon type="bulb" theme="filled" />}
-          />
+        <div className='div-perfil-sidebarClient'>
+          <h3 className={`h3-sidebarClient-${this.state.theme}`}><Icon type="user" style={{ fontSize: '15px' }}/> Perfil</h3>
           {this.state.redirect && <Redirect push to="/home" />}
           <h3 onClick={this.logout} className={`h3-sidebarClient-${this.state.theme}`}>Sair <Icon type="logout" style={{ fontSize: '14px' }} /></h3>
         </div>
@@ -61,7 +56,7 @@ class SidebarClient extends Component {
           defaultOpenKeys={['sub1']}
           selectedKeys={[this.state.current]}
           mode="inline"
-        >
+          >
           <SubMenu
             key="sub1"
             title={
@@ -70,7 +65,7 @@ class SidebarClient extends Component {
                 <span>Navigation One</span>
               </span>
             }
-          >
+            >
             <Menu.Item key="1">Option 1</Menu.Item>
             <Menu.Item key="2">Option 2</Menu.Item>
             <Menu.Item key="3">Option 3</Menu.Item>
@@ -84,7 +79,7 @@ class SidebarClient extends Component {
                 <span>Navigation Two</span>
               </span>
             }
-          >
+            >
             <Menu.Item key="5">Option 5</Menu.Item>
             <Menu.Item key="6">Option 6</Menu.Item>
             <SubMenu key="sub3" title="Submenu">
@@ -100,13 +95,23 @@ class SidebarClient extends Component {
                 <span>Navigation Three</span>
               </span>
             }
-          >
+            >
             <Menu.Item key="9">Option 9</Menu.Item>
             <Menu.Item key="10">Option 10</Menu.Item>
             <Menu.Item key="11">Option 11</Menu.Item>
             <Menu.Item key="12">Option 12</Menu.Item>
           </SubMenu>
         </Menu>
+        </div>
+        <div className={`div-theme-${this.state.theme}`}>
+          <Switch
+            style={{ marginLeft: '10px' }}
+            checked={this.state.theme === 'dark'}
+            onChange={this.changeTheme}
+            checkedChildren={<Icon type="bulb" />}
+            unCheckedChildren={<Icon type="bulb" theme="filled" />}
+          />
+        </div>
       </div>
     );
   }
