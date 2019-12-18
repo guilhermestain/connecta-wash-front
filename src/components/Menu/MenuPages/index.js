@@ -1,18 +1,25 @@
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
+import { redirect } from "../MenuRedux/action";
 import MenuClient from "./MenuClient";
 import MenuCompany from "./MenuCompany";
 
 class MenuPages extends Component {
-  state = {
-    redirectPage: this.props.redirectPage.redirect
-  };
+  constructor(props) {
+    super(props);
+    this.state = { redirectPage: this.props.redirectPage.redirect };
+  }
 
   render() {
-    if (this.state.redirectPage !== this.props.redirectPage.redirect) {
-      this.setState({ redirectPage: this.props.redirectPage.redirect });
+    if (
+      this.props.auth.token &&
+      this.props.redirectPage.redirect !== "" &&
+      this.state.redirectPage !== this.props.redirectPage.redirect
+    ) {
+      this.props.redirect({ redirect: "" });
       return <Redirect to={this.props.redirectPage.redirect} />;
     } else {
       return (
@@ -24,11 +31,15 @@ class MenuPages extends Component {
     }
   }
 }
+function mapDispacthToProps(dispach) {
+  return bindActionCreators({ redirect }, dispach);
+}
 
 function mapStateToProps(state) {
   return {
-    redirectPage: state.redirect
+    redirectPage: state.redirect,
+    auth: state.auth
   };
 }
 
-export default connect(mapStateToProps)(MenuPages);
+export default connect(mapStateToProps, mapDispacthToProps)(MenuPages);

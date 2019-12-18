@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { Menu, Icon, Switch } from 'antd';
+import React, { Component } from "react";
+import { Menu, Icon, Switch } from "antd";
 import { Redirect } from "react-router-dom";
-import './index.css'
+import "./index.css";
 import { slideout } from "../../services/slideout";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -13,8 +13,8 @@ const { SubMenu } = Menu;
 
 class SidebarEmpresa extends Component {
   state = {
-    theme: 'dark',
-    current: '1',
+    theme: "dark",
+    current: "1",
     redirect: false
   };
 
@@ -30,34 +30,40 @@ class SidebarEmpresa extends Component {
 
   changeTheme = async value => {
     await this.setState({
-      theme: value ? 'dark' : 'light',
+      theme: value ? "dark" : "light"
     });
   };
 
   handleClick = e => {
     this.setState({
-      current: e.key,
+      current: e.key
     });
   };
 
   render() {
     return (
       <div className={`div-sidebarCLient-${this.state.theme}`}>
-        <div className='div-theme-sidebarCLient'>
+        <div className={`div-theme-sidebarCLient-${this.state.theme}`}>
           <Switch
-            checked={this.state.theme === 'dark'}
+            style={{ marginLeft: "10px" }}
+            checked={this.state.theme === "dark"}
             onChange={this.changeTheme}
             checkedChildren={<Icon type="bulb" />}
             unCheckedChildren={<Icon type="bulb" theme="filled" />}
           />
           {this.state.redirect && <Redirect push to="/home" />}
-          <h3 onClick={this.logout} className='h3-sidebarClient'>Sair <Icon type="logout" style={{ fontSize: '14px' }} /></h3>
+          <h3
+            onClick={this.logout}
+            className={`h3-sidebarClient-${this.state.theme}`}
+          >
+            Sair <Icon type="logout" style={{ fontSize: "14px" }} />
+          </h3>
         </div>
         <Menu
           theme={this.state.theme}
           onClick={this.handleClick}
-          style={{ width: '100%' }}
-          defaultOpenKeys={['sub1']}
+          style={{ width: "100%" }}
+          defaultOpenKeys={["sub1"]}
           selectedKeys={[this.state.current]}
           mode="inline"
         >
@@ -91,20 +97,6 @@ class SidebarEmpresa extends Component {
               <Menu.Item key="8">Option 8</Menu.Item>
             </SubMenu>
           </SubMenu>
-          <SubMenu
-            key="sub4"
-            title={
-              <span>
-                <Icon type="setting" />
-                <span>Navigation Three</span>
-              </span>
-            }
-          >
-            <Menu.Item key="9">Option 9</Menu.Item>
-            <Menu.Item key="10">Option 10</Menu.Item>
-            <Menu.Item key="11">Option 11</Menu.Item>
-            <Menu.Item key="12">Option 12</Menu.Item>
-          </SubMenu>
         </Menu>
       </div>
     );
@@ -120,4 +112,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, mapDispacthToProps)(SidebarEmpresa)
+export default connect(mapStateToProps, mapDispacthToProps)(SidebarEmpresa);

@@ -3,7 +3,7 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 
 import CadastroClientLoginRoute from "./CadastroLoginClient";
-import ClientDashRoute from "./Client/Dash";
+import ClientRoute from "./Client";
 import CompanyDashRoute from "./Company/Dash";
 import CadastroEmpresaLoginRoute from "./CadastroLoginEmpresa";
 import ConfirmarCodigoRoute from "./ConfirmarCodigo";
@@ -14,6 +14,9 @@ class PagesRoute extends Component {
   };
 
   render() {
+    console.log(this.state.redirectPage);
+    console.log(this.props.redirectPage.redirect);
+    console.log(this.state.redirectPage !== this.props.redirectPage.redirect);
     if (this.state.redirectPage !== this.props.redirectPage.redirect) {
       this.setState({ redirectPage: this.props.redirectPage.redirect });
       return <Redirect to={this.props.redirectPage.redirect} />;
@@ -35,8 +38,12 @@ class PagesRoute extends Component {
             path="/confimarCodigo"
             component={ConfirmarCodigoRoute}
           />
-          <Route exact path="/client/monitoramento" component={ClientDashRoute} />
-          <Route exact path="/company/dash" component={CompanyDashRoute} />
+          <Route
+            exact
+            path="/company/monitoramento"
+            component={CompanyDashRoute}
+          />
+          <ClientRoute path="/client" />
         </Switch>
       );
     }
