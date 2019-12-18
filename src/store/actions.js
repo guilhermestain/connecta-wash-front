@@ -3,5 +3,6 @@ export default {
     AUTH: "LOGIN_AUTH",
     LOGOUT: "LOGOUT_AUTH"
   },
-  REDIRECT: "REDIRECT"
+  REDIRECT: "REDIRECT",
+  CHECK: "CHECK"
 };
