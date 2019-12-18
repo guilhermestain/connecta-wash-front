@@ -42,7 +42,6 @@ class MenuCompany extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <>
         <Button onClick={this.logout}>logout</Button>

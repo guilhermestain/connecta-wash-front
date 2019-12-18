@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./index.css";
 import { Input, Button, Icon } from "antd";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -59,9 +59,10 @@ class LoginPage extends Component {
   // }
 
   login = async () => {
-    const { email, senha } = this.state;
+    const { email, senha, client } = this.state;
+    const typeAccount = client ? "client" : "company";
 
-    await this.props.onSubmit({ email, password: senha });
+    await this.props.onSubmit({ email, password: senha, typeAccount });
   };
 
   render() {
@@ -150,12 +151,12 @@ class LoginPage extends Component {
               {this.state.client ? (
                 <h4 className="p-login">
                   Gostaria de se cadastrar?{" "}
-                  <a href="/cadastroClient">Clique aqui</a>
+                  <Link to="/cadastroClient">Clique aqui</Link>
                 </h4>
               ) : (
                 <h4 className="p-login">
                   Gostaria de se cadastrar?{" "}
-                  <a href="/cadastroEmpresa">Clique aqui</a>
+                  <Link to="/cadastroEmpresa">Clique aqui</Link>
                 </h4>
               )}
             </div>

@@ -1,6 +1,6 @@
 import api from "./api";
 
-export const creatrUser = async value => {
+export const createUser = async value => {
   let response = {};
   await api
     .post("/oapi/user", value)

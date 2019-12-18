@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { Input, Button, Icon } from "antd";
 import { Redirect } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
-import { creatrUser } from "../../../services/user";
+import { createUser } from "../../../services/user";
 import { validator } from "./validator";
+import { createAccount } from "../Redux/action";
+import { onSubmit } from "../../Login/LoginRedux/action";
 
 class CadastroClientLoginPage extends Component {
   state = {
@@ -86,9 +90,11 @@ class CadastroClientLoginPage extends Component {
       typeAccount: "client"
     };
 
-    const { status, data } = await creatrUser(value);
+    const { status, data } = await createUser(value);
 
     if (status === 200) {
+      this.props.onSubmit({ email, password });
+
       this.setState({
         nome: "",
         email: "",
@@ -99,7 +105,13 @@ class CadastroClientLoginPage extends Component {
           email: false,
           senha: false,
           confirmSenha: false
-        }
+        },
+        redirect: "/confirmarCodigo"
+      });
+
+      this.props.createAccount({
+        userId: data.id,
+        typeAccount: data.typeAccount
       });
     }
   };
@@ -190,4 +202,17 @@ class CadastroClientLoginPage extends Component {
   }
 }
 
-export default CadastroClientLoginPage;
+function mapDispacthToProps(dispach) {
+  return bindActionCreators({ createAccount, onSubmit }, dispach);
+}
+
+function mapStateToProps(state) {
+  return {
+    check: state.check
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispacthToProps
+)(CadastroClientLoginPage);
