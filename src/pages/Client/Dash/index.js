@@ -7,7 +7,7 @@ class DashRoute extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/client/dash" component={DashPage} />
+        <Route exact path="/client/monitoramento" component={DashPage} />
       </Switch>
     );
   }
