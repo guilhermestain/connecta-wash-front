@@ -93,7 +93,7 @@ class CadastroClientLoginPage extends Component {
     const { status, data } = await createUser(value);
 
     if (status === 200) {
-      this.props.onSubmit({ email, password });
+      this.props.onSubmit({ email, password, typeAccount: "client" });
 
       this.setState({
         nome: "",

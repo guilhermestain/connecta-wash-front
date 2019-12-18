@@ -1,21 +1,16 @@
 import React, { Component } from "react";
-import "./index.css";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Icon } from "antd";
 
-import { slideout } from "../../../../services/slideout";
-import { Logout } from "../../../Login/LoginRedux/action";
-import { Button, Icon } from "antd";
+import { slideout } from "../services/slideout";
 
-class DashPage extends Component {
+export default class ButtonMenu extends Component {
   state = {
-    redirect: false
+    isOpen: slideout.isOpen()
   };
+
   componentDidMount = () => {
     slideout.enableTouch();
   };
-
   render() {
     return (
       <>
@@ -38,20 +33,7 @@ class DashPage extends Component {
             }}
           />
         )}
-        {this.state.redirect && <Redirect push to="/home" />}
-        <h1>Company</h1>
       </>
     );
   }
 }
-
-function mapDispacthToProps(dispach) {
-  return bindActionCreators({ Logout }, dispach);
-}
-function mapStateToProps(state) {
-  return {
-    auth: state.auth
-  };
-}
-
-export default connect(mapStateToProps, mapDispacthToProps)(DashPage);

@@ -9,7 +9,7 @@ import { onSubmit } from "../LoginRedux/action";
 
 class LoginPage extends Component {
   state = {
-    redirect: false,
+    redirect: "",
     email: "",
     senha: "",
     client: true
@@ -40,8 +40,8 @@ class LoginPage extends Component {
   };
 
   renderRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect push to={this.state.redirect} />;
+    if (this.state.redirect !== "") {
+      return <Redirect push strict from="/login" to={this.state.redirect} />;
     }
   };
 

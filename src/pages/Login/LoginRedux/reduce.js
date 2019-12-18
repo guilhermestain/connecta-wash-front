@@ -6,7 +6,9 @@ const INICIAL_STATE_AUTH = {
   username: "userName",
   email: "email",
   validTonken: false,
-  password: ""
+  password: "",
+  client: null,
+  company: null
 };
 
 export function auth(state = INICIAL_STATE_AUTH, action) {
