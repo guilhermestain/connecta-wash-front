@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import uuidValidate from "uuid-validate";
 import * as R from "ramda";
@@ -19,9 +19,9 @@ class LoginRoute extends Component {
       uuidValidate(this.props.auth.token)
     ) {
       this.props.redirect({
-        redirect: `/${this.props.auth.typeAccount}/dash`
+        redirect: `/${this.props.auth.typeAccount}/monitoramento`
       });
-      return <Redirect to={`/${this.props.auth.typeAccount}/dash`} />;
+      return <Redirect to={`/${this.props.auth.typeAccount}/monitoramento`} />;
     }
     return <LoginPage />;
   }
