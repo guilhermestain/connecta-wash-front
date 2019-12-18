@@ -20,6 +20,7 @@ export const validator = (name, value, state) => {
     case "email":
       if (
         value === "" ||
+        // eslint-disable-next-line no-useless-escape
         !/^[\w_\-\.]+@[\w_\-\.]{2,}\.[\w]{2,}(\.[\w])?/.test(value)
       ) {
         fieldFalha[name] = true;
