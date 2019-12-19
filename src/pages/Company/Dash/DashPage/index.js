@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 
 import { slideout } from "../../../../services/slideout";
 import { Logout } from "../../../Login/LoginRedux/action";
-import { Button, Icon } from "antd";
+import { Icon } from "antd";
 
 class DashPage extends Component {
   state = {

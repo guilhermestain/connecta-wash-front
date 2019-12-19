@@ -28,16 +28,19 @@ class DashPage extends Component {
               <p
                 style={{
                   fontFamily: "myFirstFont",
-                  fontSize: "30px",
-                  marginLeft: "20px"
+                  fontSize: "28px",
+                  marginLeft: "20px",
+                  marginBottom: '0px'
                 }}
               >
                 Lavanderia Leva
               </p>
             </div>
-            <p style={{ fontFamily: "myFirstFont", fontSize: "30px" }}>
+            <div className='div-p-client-moni'>
+            <p style={{ fontFamily: "myFirstFont", fontSize: "28px" }}>
               Av. Pery Rochet
             </p>
+            </div>
           </Card>
 
           <Card className="cards-client-moni">
@@ -48,16 +51,19 @@ class DashPage extends Component {
               <p
                 style={{
                   fontFamily: "myFirstFont",
-                  fontSize: "30px",
-                  marginLeft: "20px"
+                  fontSize: "28px",
+                  marginLeft: "20px",
+                  marginBottom: '0px'
                 }}
               >
                 Lavanderia Lava
               </p>
             </div>
-            <p style={{ fontFamily: "myFirstFont", fontSize: "30px" }}>
-              Av. Pery Rochet
+            <div className='div-p-client-moni'>
+              <p style={{ fontFamily: "myFirstFont", fontSize: "28px" }}>
+                Av. Pery Rochet
             </p>
+            </div>
           </Card>
 
           <Card className="cards-client-moni">
@@ -68,16 +74,19 @@ class DashPage extends Component {
               <p
                 style={{
                   fontFamily: "myFirstFont",
-                  fontSize: "30px",
-                  marginLeft: "20px"
+                  fontSize: "28px",
+                  marginLeft: "20px",
+                  marginBottom: '0px'
                 }}
               >
                 Lavanderia Luva
               </p>
             </div>
-            <p style={{ fontFamily: "myFirstFont", fontSize: "30px" }}>
+            <div className='div-p-client-moni'>
+            <p style={{ fontFamily: "myFirstFont", fontSize: "28px" }}>
               Av. Pery Rochet
             </p>
+            </div>
           </Card>
         </div>
       </>
