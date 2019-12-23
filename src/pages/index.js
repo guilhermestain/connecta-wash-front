@@ -14,9 +14,6 @@ class PagesRoute extends Component {
   };
 
   render() {
-    console.log(this.state.redirectPage);
-    console.log(this.props.redirectPage.redirect);
-    console.log(this.state.redirectPage !== this.props.redirectPage.redirect);
     if (this.state.redirectPage !== this.props.redirectPage.redirect) {
       this.setState({ redirectPage: this.props.redirectPage.redirect });
       return <Redirect to={this.props.redirectPage.redirect} />;
