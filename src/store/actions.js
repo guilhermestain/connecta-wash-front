@@ -1,8 +1,10 @@
 export default {
   LOGIN: {
     AUTH: "LOGIN_AUTH",
-    LOGOUT: "LOGOUT_AUTH"
+    LOGOUT: "LOGOUT_AUTH",
+    COMPLETE: "LOGIN_COMPLETE"
   },
   REDIRECT: "REDIRECT",
-  CHECK: "CHECK"
+  CHECK: "CHECK",
+  THEME: "THEME"
 };

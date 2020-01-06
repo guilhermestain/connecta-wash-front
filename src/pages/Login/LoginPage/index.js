@@ -62,7 +62,11 @@ class LoginPage extends Component {
     const { email, senha, client } = this.state;
     const typeAccount = client ? "client" : "company";
 
-    await this.props.onSubmit({ email, password: senha, typeAccount });
+    await this.props.onSubmit({
+      email,
+      password: senha,
+      typeAccount
+    });
   };
 
   render() {

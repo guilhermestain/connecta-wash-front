@@ -10,12 +10,12 @@ export function changeValue(e) {
 
 export function onSubmit(value) {
   return dispatch => {
-    login(value).then(resp =>
+    login(value).then(resp => {
       dispatch({
         type: action.LOGIN.AUTH,
         payload: resp
-      })
-    );
+      });
+    });
   };
 }
 
@@ -27,5 +27,14 @@ export function Logout(value) {
         payload: null
       })
     );
+  };
+}
+
+export function complete() {
+  return dispatch => {
+    dispatch({
+      type: action.LOGIN.COMPLETE,
+      payload: { complete: true }
+    });
   };
 }

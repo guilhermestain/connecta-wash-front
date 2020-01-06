@@ -1,9 +1,13 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
 import "./index.css";
 
 import { slideout } from "../../../../services/slideout";
 import { Card } from "antd";
 
+// import { redirect } from "../../../../components/Menu/MenuRedux/action";
 import ButtonMenu from "../../../../components/ButtonMenu";
 
 class DashPage extends Component {
@@ -12,6 +16,8 @@ class DashPage extends Component {
   };
 
   componentDidMount = () => {
+    // this.props.redirect({ redirect: "" });
+
     slideout.enableTouch();
   };
 
@@ -30,16 +36,16 @@ class DashPage extends Component {
                   fontFamily: "myFirstFont",
                   fontSize: "28px",
                   marginLeft: "20px",
-                  marginBottom: '0px'
+                  marginBottom: "0px"
                 }}
               >
                 Lavanderia Leva
               </p>
             </div>
-            <div className='div-p-client-moni'>
-            <p style={{ fontFamily: "myFirstFont", fontSize: "28px" }}>
-              Av. Pery Rochet
-            </p>
+            <div className="div-p-client-moni">
+              <p style={{ fontFamily: "myFirstFont", fontSize: "28px" }}>
+                Av. Pery Rochet
+              </p>
             </div>
           </Card>
 
@@ -53,16 +59,16 @@ class DashPage extends Component {
                   fontFamily: "myFirstFont",
                   fontSize: "28px",
                   marginLeft: "20px",
-                  marginBottom: '0px'
+                  marginBottom: "0px"
                 }}
               >
                 Lavanderia Lava
               </p>
             </div>
-            <div className='div-p-client-moni'>
+            <div className="div-p-client-moni">
               <p style={{ fontFamily: "myFirstFont", fontSize: "28px" }}>
                 Av. Pery Rochet
-            </p>
+              </p>
             </div>
           </Card>
 
@@ -76,16 +82,16 @@ class DashPage extends Component {
                   fontFamily: "myFirstFont",
                   fontSize: "28px",
                   marginLeft: "20px",
-                  marginBottom: '0px'
+                  marginBottom: "0px"
                 }}
               >
                 Lavanderia Luva
               </p>
             </div>
-            <div className='div-p-client-moni'>
-            <p style={{ fontFamily: "myFirstFont", fontSize: "28px" }}>
-              Av. Pery Rochet
-            </p>
+            <div className="div-p-client-moni">
+              <p style={{ fontFamily: "myFirstFont", fontSize: "28px" }}>
+                Av. Pery Rochet
+              </p>
             </div>
           </Card>
         </div>
@@ -94,4 +100,14 @@ class DashPage extends Component {
   }
 }
 
-export default DashPage;
+// function mapDispacthToProps(dispach) {
+//   return bindActionCreators({ redirect }, dispach);
+// }
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
+
+export default connect(mapStateToProps)(DashPage);

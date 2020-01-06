@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
+// import * as R from "ramda";
 
 import PagesRoute from "../pages";
 
@@ -7,6 +8,7 @@ import { Logout } from "../pages/Login/LoginRedux/action";
 import { auth } from "../services/login";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { indexOf } from "ramda";
 
 class PrivateRoutes extends Component {
   state = {
@@ -15,19 +17,20 @@ class PrivateRoutes extends Component {
   logout = async () => {
     await this.props.Logout(this.props.auth.token);
   };
+
   auth = async () => {
     const value = {
       token: this.props.auth.token,
-      username: this.props.auth.username
+      email: this.props.auth.email
     };
 
     let response = {};
 
-    response = await auth(value).then(resp =>
+    response = await auth(value).then(resp => {
       this.setState({
-        auth: resp ? resp.data : false
-      })
-    );
+        auth: resp.status === 200 ? resp.data : false
+      });
+    });
 
     return response;
   };

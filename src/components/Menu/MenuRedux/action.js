@@ -7,3 +7,12 @@ export function redirect(value) {
       payload: value
     });
 }
+
+export function theme(value) {
+  return dispatch => {
+    dispatch({
+      type: action.THEME,
+      payload: value
+    });
+  };
+}

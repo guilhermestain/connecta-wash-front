@@ -12,13 +12,13 @@ const INICIAL_STATE_AUTH = {
 };
 
 export function auth(state = INICIAL_STATE_AUTH, action) {
+  let auth = {
+    ...state
+  };
   switch (action.type) {
     case actions.LOGIN.AUTH:
-      let auth = {
-        ...state
-      };
       if (action.payload.status === 200) {
-        if (action.payload.data.token) {
+        if (action.payload.data) {
           auth = {
             ...auth,
             ...action.payload.data
@@ -30,6 +30,14 @@ export function auth(state = INICIAL_STATE_AUTH, action) {
 
     case actions.LOGIN.LOGOUT:
       return (state = {});
+
+    case actions.LOGIN.COMPLETE:
+      auth = {
+        ...auth,
+        ...action.payload
+      };
+
+      return auth;
 
     default:
       return state;
