@@ -19,14 +19,14 @@ class PrivateRoutes extends Component {
   auth = async () => {
     const value = {
       token: this.props.auth.token,
-      username: this.props.auth.username
+      email: this.props.auth.email
     };
 
     let response = {};
 
     response = await auth(value).then(resp =>
       this.setState({
-        auth: resp ? resp.data : false
+        auth: resp.status === 200 ? resp.data : false
       })
     );
 

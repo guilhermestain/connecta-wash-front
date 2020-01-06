@@ -5,20 +5,16 @@ import { Redirect } from "react-router-dom";
 import { Steps, Icon, Input, Button, Select } from "antd";
 import * as R from "ramda";
 
-import "./index.css";
-
 import ButtonMenu from "../../../../components/ButtonMenu";
-import { profileUpdate, getById } from "../../../../services/client";
+import { validator, masks } from "./validator";
+import { getById, profileUpdate } from "../../../../services/company";
 import { contactUpdate } from "../../../../services/contact";
 import {
   getAddressByZipCode,
   createAddress
 } from "../../../../services/address";
+
 import { complete } from "../../../Login/LoginRedux/action";
-
-// import { redirect } from "../../../../components/Menu/MenuRedux/action";
-
-import { validator, masks } from "./validator";
 
 const { Step } = Steps;
 const { Option } = Select;
@@ -26,19 +22,22 @@ const { Option } = Select;
 class ProfilePage extends Component {
   state = {
     current: 0,
-    cpf: "",
-    rg: "",
+    razaoSocial: this.props.auth.name,
     name: "",
-    givenName: "",
-    familyName: "",
+    cnpj: "",
     email: "",
-    telphones: [],
+    street: "",
+    number: "",
+    complement: "",
+    city: "",
+    state: "",
+    neighborhood: "",
+    referencePoint: "",
+    zipCode: "",
     fieldFalha: {
-      cpf: false,
-      rg: false,
+      razaoSocial: false,
       name: false,
-      givenName: false,
-      familyName: false,
+      cnpj: false,
       email: false,
       street: false,
       number: false,
@@ -49,85 +48,12 @@ class ProfilePage extends Component {
       referencePoint: false,
       zipCode: false
     },
-    street: "",
-    number: "",
-    complement: "",
-    city: "",
-    state: "",
-    neighborhood: "",
-    referencePoint: "",
-    zipCode: "",
-    contactId: "",
-    redirect: false
-  };
-
-  componentDidMount = async () => {
-    // this.props.redirect({ redirect: "" });
-    const { status, data } = await getById({ id: this.props.auth.clientId });
-
-    if (status === 200) {
-      const { value: cpf } = masks("cpf", data.cpf);
-      const { value: rg } = masks("rg", data.rg);
-      const { value: name } = masks("name", data.name);
-
-      const { value: contactId } = masks("name", data.contact.id);
-      const { value: givenName } = masks("name", data.contact.givenName);
-      const { value: familyName } = masks("name", data.contact.familyName);
-      const { value: email } = masks("name", data.contact.email);
-
-      const { address } = data;
-
-      if (address) {
-        const { value: zipCode } = masks("name", address.zipCode);
-        const { value: street } = masks("name", address.street);
-        const { value: number } = masks("name", address.number);
-        const { value: complement } = masks("name", address.complement);
-        const { value: city } = masks("name", address.city);
-        const { value: state } = masks("name", address.state);
-        const { value: neighborhood } = masks("name", address.neighborhood);
-        const { value: referencePoint } = masks("name", address.referencePoint);
-        const { value: addressId } = masks("name", address.id);
-
-        this.setState({
-          zipCode,
-          street,
-          number,
-          complement,
-          city,
-          state,
-          neighborhood,
-          referencePoint,
-          addressId
-        });
-      }
-
-      let { telphones } = data.contact;
-      telphones =
-        telphones.length === 0
-          ? [
-              {
-                type: "outro",
-                phone: ""
-              }
-            ]
-          : telphones;
-      this.setState({
-        cpf,
-        rg,
-        name,
-        givenName,
-        familyName,
-        email,
-        telphones,
-        contactId,
-        addressId: address && address.id
-      });
-    }
+    telphones: []
   };
 
   steps = [
     {
-      title: "Pessoal",
+      title: "empresa",
       icon: <Icon type="user" />
     },
     {
@@ -147,125 +73,84 @@ class ProfilePage extends Component {
     }
   ];
 
-  next() {
-    const current = this.state.current + 1;
-    this.setState({ current });
-  }
-
-  prev() {
-    const current = this.state.current - 1;
-    this.setState({ current });
-  }
-
-  updateProfile = async () => {
-    const { rg, cpf, name } = this.state;
-    const { clientId } = this.props.auth;
-
-    const value = {
-      name,
-      rg: rg.replace(/\W/gi, ""),
-      cpf: cpf.replace(/\W/gi, ""),
-      id: clientId
-    };
-
-    const { status, data } = await profileUpdate(value);
+  componentDidMount = async () => {
+    // this.props.redirect({ redirect: "" });
+    const { status, data } = await getById({ id: this.props.auth.companyId });
+    console.log(status, data);
 
     if (status === 200) {
-      this.next();
-    }
-  };
+      const { razaoSocial, contact, address } = data;
+      const { value: cnpj } = masks("cnpj", data.cnpj);
 
-  updateContact = async () => {
-    const {
-      contactId: id,
-      givenName,
-      familyName,
-      email,
-      telphones
-    } = this.state;
+      const { id: contactId, email, givenName: name } = contact;
 
-    const value = { id, givenName, familyName, email, telphones };
+      if (address) {
+        const {
+          street,
+          number,
+          complement,
+          city,
+          neighborhood,
+          referencePoint,
+          addressId
+        } = address;
+        const { value: zipCode } = masks("name", address.zipCode);
+        const { value: state } = masks("name", address.state);
 
-    const { status } = await contactUpdate(value);
-
-    if (status === 200) {
-      this.next();
-    }
-  };
-
-  createOrUpdateAddress = async () => {
-    const {
-      zipCode,
-      street,
-      number,
-      complement,
-      city,
-      state,
-      neighborhood,
-      referencePoint,
-      addressId
-    } = this.state;
-
-    const value = {
-      zipCode,
-      street,
-      number,
-      complement,
-      city,
-      state,
-      neighborhood,
-      referencePoint,
-      clientId: this.props.auth.clientId,
-      userId: this.props.auth.userId
-    };
-
-    if (!addressId) {
-      const { status, data } = await createAddress(value);
-
-      console.log(status, data);
-      if (status === 200) {
-        this.props.complete();
+        this.setState({
+          zipCode,
+          street,
+          number,
+          complement,
+          city,
+          state,
+          neighborhood,
+          referencePoint,
+          addressId
+        });
       }
-    }
 
-    this.setState({
-      redirect: true
-    });
+      let { telphones } = data.contact;
+
+      telphones =
+        telphones.length === 0
+          ? [
+              {
+                type: "outro",
+                phone: ""
+              }
+            ]
+          : telphones;
+
+      telphones = telphones.map(telphone => {
+        const { value: phone } = masks("phone", telphone.phone);
+        console.log(phone);
+        return {
+          ...telphone,
+          phone
+        };
+      });
+
+      this.setState({
+        razaoSocial,
+        cnpj,
+        telphones,
+        contactId,
+        name,
+        email
+      });
+      console.log(this.state);
+    }
+  };
+
+  onChangeSteps = current => {
+    this.setState({ current });
   };
 
   onChange = e => {
     const { name, value } = masks(e.target.name, e.target.value);
     this.setState({
       [name]: value
-    });
-  };
-
-  onChangeTelphones = e => {
-    const { name, value } = masks(e.target.name, e.target.value);
-    const { telphones } = this.state;
-
-    // console.log(e.target.id);
-
-    telphones[e.target.id] = {
-      ...telphones[e.target.id],
-      [name]: value
-    };
-
-    this.setState({
-      telphones
-    });
-  };
-
-  onChangeItem = (value, e) => {
-    const { telphones } = this.state;
-
-    telphones[e.key] = {
-      ...telphones[e.key],
-      type: value
-    };
-
-    this.setState({
-      telphones
     });
   };
 
@@ -310,15 +195,20 @@ class ProfilePage extends Component {
     });
   };
 
-  addTelphone = () => {
+  onChangeTelphones = e => {
+    const { name, value } = masks(e.target.name, e.target.value);
     const { telphones } = this.state;
 
-    telphones.push({
-      type: "outro",
-      phone: ""
-    });
+    // console.log(e.target.id);
 
-    this.setState({ telphones });
+    telphones[e.target.id] = {
+      ...telphones[e.target.id],
+      [name]: value
+    };
+
+    this.setState({
+      telphones
+    });
   };
 
   process = () => {
@@ -329,14 +219,14 @@ class ProfilePage extends Component {
         return (
           <>
             <div className="h1-bv-profile">
-              <h1>Pessoal</h1>
+              <h1>empresa</h1>
             </div>
             <div className="div-inputs-profile">
-              <label className="p-inputs-profile">name</label>
+              <label className="p-inputs-profile">Razão Social</label>
               <Input
-                name="name"
-                value={this.state.name}
-                className={`input-profile ${this.state.fieldFalha.name &&
+                name="razaoSocial"
+                value={this.state.razaoSocial}
+                className={`input-profile ${this.state.fieldFalha.razaoSocial &&
                   "input-error"}`}
                 onChange={this.onChange}
                 onBlur={this.onBlur}
@@ -344,26 +234,14 @@ class ProfilePage extends Component {
               />
             </div>
             <div className="div-inputs-profile">
-              <label className="p-inputs-profile">cpf</label>
+              <label className="p-inputs-profile">CNPJ</label>
               <Input
-                name="cpf"
-                value={this.state.cpf}
-                className={`input-profile ${this.state.fieldFalha.cpf &&
+                name="cnpj"
+                value={this.state.cnpj}
+                className={`input-profile ${this.state.fieldFalha.cnpj &&
                   "input-error"}`}
                 onChange={this.onChange}
                 onBlur={this.onBlur}
-                onFocus={this.onFocus}
-              />
-            </div>
-            <div className="div-inputs-profile">
-              <label className="p-inputs-profile">rg</label>
-              <Input
-                className={`input-profile ${this.state.fieldFalha.rg &&
-                  "input-error"}`}
-                onChange={this.onChange}
-                onBlur={this.onBlur}
-                name="rg"
-                value={this.state.rg}
                 onFocus={this.onFocus}
               />
             </div>
@@ -376,26 +254,14 @@ class ProfilePage extends Component {
               <h1>Contato</h1>
             </div>
             <div className="div-inputs-profile">
-              <label className="p-inputs-profile">givenName</label>
+              <label className="p-inputs-profile">name</label>
               <Input
-                className={`input-profile ${this.state.fieldFalha.givenName &&
+                className={`input-profile ${this.state.fieldFalha.name &&
                   "input-error"}`}
                 onChange={this.onChange}
                 onBlur={this.onBlur}
-                name="givenName"
-                value={this.state.givenName}
-                onFocus={this.onFocus}
-              />
-            </div>
-            <div className="div-inputs-profile">
-              <label className="p-inputs-profile">familyName</label>
-              <Input
-                className={`input-profile ${this.state.fieldFalha.familyName &&
-                  "input-error"}`}
-                onChange={this.onChange}
-                onBlur={this.onBlur}
-                name="familyName"
-                value={this.state.familyName}
+                name="name"
+                value={this.state.name}
                 onFocus={this.onFocus}
               />
             </div>
@@ -412,94 +278,21 @@ class ProfilePage extends Component {
               />
             </div>
             <div className="div-inputs-profile">
-              <label className="p-inputs-profile">telphones</label>
+              <label className="p-inputs-profile">Telphone</label>
             </div>
             {this.state.telphones.map((telphone, index) => {
               return (
-                <div
-                  className="div-inputs-profile"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center"
-                  }}
-                >
-                  {index > 0 && (
-                    <div
-                      style={{
-                        width: "10px",
-                        margin: "10px"
-                      }}
-                    />
-                  )}
-                  <div style={{ width: "80%", "max-width": "270px" }}>
-                    <div className="div-row-inputs-profile">
-                      <div className="div-inputs-profile-50">
-                        <Select
-                          style={{ width: "90%", "max-width": "100px" }}
-                          value={telphone.type}
-                          onChange={this.onChangeItem}
-                        >
-                          {["celular", "residencial", "outro", "comercial"].map(
-                            type => {
-                              return (
-                                <Option key={index} value={type}>
-                                  {type.slice(0, 1).toUpperCase() +
-                                    type.slice(1)}
-                                </Option>
-                              );
-                            }
-                          )}
-                        </Select>
-                      </div>
-                      <div
-                        className="div-inputs-profile-50"
-                        style={{
-                          "align-items": "flex-end"
-                        }}
-                      >
-                        <Input
-                          name="phone"
-                          style={{ width: "100%" }}
-                          value={telphone.phone}
-                          onChange={this.onChangeTelphones}
-                          id={index}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  {index > 0 && (
-                    <div
-                      style={{
-                        width: "10px",
-                        margin: "10px"
-                      }}
-                    >
-                      <Icon
-                        id="delete-row-telphone"
-                        onClick={() => {
-                          const { telphones } = this.state;
-
-                          telphones.splice(index, 1);
-
-                          this.setState({
-                            telphones
-                          });
-                        }}
-                        type="close-circle"
-                      />
-                    </div>
-                  )}
+                <div className="div-inputs-profile">
+                  <Input
+                    className="input-profile"
+                    name="phone"
+                    value={telphone.phone}
+                    onChange={this.onChangeTelphones}
+                    id={index}
+                  />
                 </div>
               );
             })}
-            <div className="div-inputs-profile">
-              <div id="buttton-add-telphone">
-                <Button onClick={this.addTelphone}>
-                  <Icon type="plus" />
-                </Button>
-              </div>
-            </div>
           </>
         );
       case 2:
@@ -553,6 +346,7 @@ class ProfilePage extends Component {
                 onFocus={this.onFocus}
               />
             </div>
+
             <div className="div-inputs-profile">
               <label className="p-inputs-profile">complement</label>
               <Input
@@ -589,7 +383,6 @@ class ProfilePage extends Component {
                 onFocus={this.onFocus}
               />
             </div>
-
             <div className="div-inputs-profile">
               <label className="p-inputs-profile">neighborhood</label>
               <Input
@@ -620,6 +413,84 @@ class ProfilePage extends Component {
         return null;
     }
   };
+
+  updateProfile = async () => {
+    const { razaoSocial, cnpj } = this.state;
+    const { companyId } = this.props.auth;
+
+    const value = {
+      razaoSocial: razaoSocial,
+      cnpj: cnpj.replace(/\W/gi, ""),
+      id: companyId
+    };
+
+    const { status, data } = await profileUpdate(value);
+
+    if (status === 200) {
+      this.next();
+    }
+  };
+
+  updateContact = async () => {
+    const { contactId: id, name, email, telphones } = this.state;
+
+    const value = { id, givenName: name, email, telphones };
+
+    const { status } = await contactUpdate(value);
+
+    if (status === 200) {
+      this.next();
+    }
+  };
+
+  createOrUpdateAddress = async () => {
+    const {
+      zipCode,
+      street,
+      number,
+      complement,
+      city,
+      state,
+      neighborhood,
+      referencePoint,
+      addressId
+    } = this.state;
+
+    const value = {
+      zipCode,
+      street,
+      number,
+      complement,
+      city,
+      state,
+      neighborhood,
+      referencePoint,
+      companyId: this.props.auth.companyId,
+      userId: this.props.auth.userId
+    };
+
+    if (!addressId) {
+      const { status, data } = await createAddress(value);
+
+      console.log(status, data);
+      if (status === 200) {
+        this.props.complete();
+      }
+    }
+    this.setState({
+      redirect: true
+    });
+  };
+
+  next() {
+    const current = this.state.current + 1;
+    this.setState({ current });
+  }
+
+  prev() {
+    const current = this.state.current - 1;
+    this.setState({ current });
+  }
 
   buttonsSubmit = () => {
     const { current } = this.state;
@@ -699,19 +570,17 @@ class ProfilePage extends Component {
     }
   };
 
-  onChangeSteps = current => {
-    this.setState({ current });
-  };
-
   renderRedirect = () => {
     const { redirect } = this.state;
 
     if (redirect) {
-      return <Redirect push to="/client/monitoramento" />;
+      return <Redirect push to="/company/monitoramento" />;
     }
   };
+
   render() {
     const { current } = this.state;
+
     return (
       <>
         {this.renderRedirect()}
@@ -722,13 +591,9 @@ class ProfilePage extends Component {
           <div className="div-card-profile">
             <div className="div-main-form-profile">
               <div className="h1-bv-profile">
-                <h1>Perfil</h1>
+                <h1>test</h1>
               </div>
-              <Steps
-                current={current}
-                onChange={this.onChangeSteps}
-                className="div-steps-profile"
-              >
+              <Steps current={current} onChange={this.onChangeSteps}>
                 {this.steps.map(item => (
                   <Step key={item.title} title={item.title} icon={item.icon} />
                 ))}

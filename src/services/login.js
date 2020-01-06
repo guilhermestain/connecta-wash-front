@@ -28,7 +28,7 @@ export const auth = async value => {
   let response = null;
 
   await api
-    .get("/oapi/auth", { params: value })
+    .get("/oapi/login/auth", { params: value })
     .then(resp => {
       response = resp;
     })

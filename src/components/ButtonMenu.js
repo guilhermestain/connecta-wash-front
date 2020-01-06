@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Icon } from "antd";
+import { Icon, Button } from "antd";
 
 import { slideout } from "../services/slideout";
 
@@ -15,23 +15,23 @@ export default class ButtonMenu extends Component {
     return (
       <>
         {this.state.isOpen ? (
-          <Icon
-            type="menu-fold"
-            style={{ fontSize: "18px", margin: "10px" }}
+          <Button
             onClick={() => {
               slideout.toggle();
               this.setState({ isOpen: slideout.isOpen() });
             }}
-          />
+          >
+            <Icon type="menu-fold" />
+          </Button>
         ) : (
-          <Icon
-            type="menu-unfold"
-            style={{ fontSize: "18px", margin: "10px" }}
+          <Button
             onClick={() => {
               slideout.toggle();
               this.setState({ isOpen: slideout.isOpen() });
             }}
-          />
+          >
+            <Icon type="menu-unfold" />
+          </Button>
         )}
       </>
     );

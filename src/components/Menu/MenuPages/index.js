@@ -13,13 +13,18 @@ class MenuPages extends Component {
     this.state = { redirectPage: this.props.redirectPage.redirect };
   }
 
+  renderRedirect = async () => {
+    this.props.redirect({ redirect: "" });
+  };
+
   render() {
+    console.log(this.props.auth.typeAccount);
     if (
       this.props.auth.token &&
       this.props.redirectPage.redirect !== "" &&
       this.state.redirectPage !== this.props.redirectPage.redirect
     ) {
-      this.props.redirect({ redirect: "" });
+      // this.renderRedirect();
       return <Redirect to={this.props.redirectPage.redirect} />;
     } else {
       return (

@@ -4,9 +4,13 @@ import { connect } from "react-redux";
 
 import CadastroClientLoginRoute from "./CadastroLoginClient";
 import ClientRoute from "./Client";
-import CompanyDashRoute from "./Company/Dash";
+import CompanyRoute from "./Company";
+
 import CadastroEmpresaLoginRoute from "./CadastroLoginEmpresa";
 import ConfirmarCodigoRoute from "./ConfirmarCodigo";
+
+// import ClientPerfilRoute from "./Client/Perfil";
+// import ClientDashRoute from "./Client/Dash";
 
 class PagesRoute extends Component {
   state = {
@@ -14,10 +18,14 @@ class PagesRoute extends Component {
   };
 
   render() {
-    console.log(this.state.redirectPage);
-    console.log(this.props.redirectPage.redirect);
-    console.log(this.state.redirectPage !== this.props.redirectPage.redirect);
-    if (this.state.redirectPage !== this.props.redirectPage.redirect) {
+    if (!this.props.auth.token) {
+      return <Redirect to="/home" />;
+    }
+
+    if (
+      this.props.redirectPage.redirect !== "" &&
+      this.state.redirectPage !== this.props.redirectPage.redirect
+    ) {
       this.setState({ redirectPage: this.props.redirectPage.redirect });
       return <Redirect to={this.props.redirectPage.redirect} />;
     } else {
@@ -38,12 +46,9 @@ class PagesRoute extends Component {
             path="/confimarCodigo"
             component={ConfirmarCodigoRoute}
           />
-          <Route
-            exact
-            path="/company/monitoramento"
-            component={CompanyDashRoute}
-          />
+
           <ClientRoute path="/client" />
+          <CompanyRoute path="/company" />
         </Switch>
       );
     }
@@ -52,7 +57,8 @@ class PagesRoute extends Component {
 
 function mapStateToProps(state) {
   return {
-    redirectPage: state.redirect
+    redirectPage: state.redirect,
+    auth: state.auth
   };
 }
 
