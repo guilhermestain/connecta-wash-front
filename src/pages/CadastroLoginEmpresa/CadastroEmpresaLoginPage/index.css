@@ -1,0 +1,24 @@
+.div-card-cadastro {
+  background: url('/prog1-01.png') no-repeat;
+  background-size: cover;
+  border-radius: 3px;
+  width: 80%;
+  height: 80%;
+  background-color: white;
+  box-shadow: 0px 0px 12px -1px rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: flex-end;
+}
+@media (max-width: 1200px) {
+  .div-card-cadastro {
+    background: none;
+    border-radius: 3px;
+    width: 90%;
+    height: 90%;
+    background-color: white;
+    box-shadow: 0px 0px 12px -1px rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
