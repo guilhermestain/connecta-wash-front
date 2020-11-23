@@ -1,20 +1,65 @@
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom'
+import React, { Component } from "react";
+import { Route, Redirect, Switch } from "react-router-dom";
+import { connect } from "react-redux";
 
-import HomeRoute from './Home';
-import LoginRoute from './Login';
-import DashRoute from './Dash';
+import CadastroClientLoginRoute from "./CadastroLoginClient";
+import ClientRoute from "./Client";
+import CompanyRoute from "./Company";
+
+import CadastroEmpresaLoginRoute from "./CadastroLoginEmpresa";
+import ConfirmarCodigoRoute from "./ConfirmarCodigo";
+
+// import ClientPerfilRoute from "./Client/Perfil";
+// import ClientDashRoute from "./Client/Dash";
 
 class PagesRoute extends Component {
+  state = {
+    redirectPage: this.props.redirectPage.redirect
+  };
+
   render() {
-    return (
-      <Switch>
-        <Route exact path='/home' component={HomeRoute} />
-        <Route exact path='/login' component={LoginRoute} />
-        <Route exact path='/client/dash' component={DashRoute} />
-      </Switch>
-    )
+    if (!this.props.auth.token) {
+      return <Redirect to="/home" />;
+    }
+
+    if (
+      this.props.redirectPage.redirect !== "" &&
+      this.state.redirectPage !== this.props.redirectPage.redirect
+    ) {
+      this.setState({ redirectPage: this.props.redirectPage.redirect });
+      return <Redirect to={this.props.redirectPage.redirect} />;
+    } else {
+      return (
+        <Switch>
+          <Route
+            exact
+            path="/cadastroClient"
+            component={CadastroClientLoginRoute}
+          />
+          <Route
+            exact
+            path="/cadastroEmpresa"
+            component={CadastroEmpresaLoginRoute}
+          />
+          <Route
+            exact
+            path="/confimarCodigo"
+            component={ConfirmarCodigoRoute}
+          />
+
+          <ClientRoute path="/client" />
+          <CompanyRoute path="/company" />
+        </Switch>
+      );
+    }
   }
 }
 
-export default PagesRoute
+function mapStateToProps(state) {
+  return {
+    redirectPage: state.redirect,
+    auth: state.auth
+  };
+}
+
+export default connect(mapStateToProps)(PagesRoute);

@@ -4,7 +4,9 @@ import './index.css'
 class DashPage extends Component {
   render() {
     return (
-      <h1>DashLOGGED</h1>
+      <div className='div-bg-dash'>
+          
+      </div>
     )
   }
 }
